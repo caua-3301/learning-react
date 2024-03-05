@@ -1,4 +1,5 @@
 import { PostCard } from ".."
+import './style.css'
 
 export const Posts = (posts) => {
 

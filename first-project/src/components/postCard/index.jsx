@@ -1,4 +1,5 @@
 //todo: conhecido como props
+import './style.css'
 
 export const PostCard = (props) => {
     
