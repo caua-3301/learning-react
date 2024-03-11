@@ -1,86 +1,96 @@
 import './style.css';
 
-import { Component } from 'react';
+import { Component, useCallback, useEffect, useState } from 'react';
 import { loadPosts } from '../../util/load-props.js';
 import { Posts } from '../../components/postCard/Post';
 import { MyButton } from '../../components/postCard/button/index.jsx';
 import { MyInput } from '../../components/postCard/inputFilter'
 
-class Home extends Component {
-  //o uso de parenteses indica o retorno de mais de uma linha em um map dentro do return()
-  //Isso é um estado
-  state = {
-    posts: [],
-    allPosts: [],
-    page: 0,
-    postsPerPage: 2,
-    filterPage: ''
-  };
+//nao existe this aqui
+export const Home = _ => {
+  //useState retorna um array com dois elemento, o elemento em si,e , um função para que ele seja setado depois
+  //useState recebe o valor inicial do estado
+  const [posts, setPosts] = useState([]);
+  const [allPosts, setAllPosts] = useState([]);
+  const [page, setPage] = useState(0);
+  const [postsPerPage, setPostPeerPage] = useState(2);
+  const [filterPage, setFilterPage] = useState('');
 
-  componentDidMount() {
-    this.loadTodos();
-  }
+  
+  const handleLoadPosts = useCallback(async (page, postsPerPage) => {
+    const photoAndPost = await loadPosts();
 
-  loadMorePosts = _ => {
-    const {allPosts, page, posts, postsPerPage} = this.state;
+    setPosts(photoAndPost.slice(page, postsPerPage));
+    setAllPosts(photoAndPost)
+  }, []);
+
+  const loadMorePosts = _ => {
 
     const nextPage = page + postsPerPage;
     const nextPost = allPosts.slice(nextPage, nextPage + postsPerPage);
 
     posts.push(...nextPost);
 
-    this.setState({posts, page: nextPage})
-
+    setPosts(posts);
+    setPage(nextPage);
   }
 
-  loadTodos = async _ => {
-    const { page, postsPerPage } = this.state;
+  const hadleChange = e => {
+    const { value } = e.target;
 
-    const photoAndPost = await loadPosts();
-    this.setState({
-       posts: photoAndPost.slice(page, postsPerPage),
-       allPosts: photoAndPost
-     });
+    setFilterPage(value);
   }
 
-  hadleChange = e => {
-      const { value } = e.target
+  useEffect(_ => {
+    handleLoadPosts(0, postsPerPage);
+  }, [handleLoadPosts, postsPerPage]);
 
-      this.setState({ filterPage: value })
-  }
+  const isMorePost = page + postsPerPage >= allPosts.length;
 
-  render() {
-    const { posts, page, postsPerPage, allPosts, filterPage} = this.state;
+  //função de filtragem não pode ser diretamente no estado devido a perda do que estava na tela
+  const filteredPost = !!filterPage ? posts.filter(post => {
+    return post.title.toUpperCase().includes(filterPage.toUpperCase())
+  }) : posts;
 
-    const isMorePost = page + postsPerPage >= allPosts.length;
-
-    //função de filtragem não pode ser diretamente no estado devido a perda do que estava na tela
-    const filteredPost = !!filterPage ? posts.filter(post => {
-      return post.title.toUpperCase().includes(filterPage.toUpperCase())
-    }) : posts;
-
-    return (
-      <section className='container'>
-        {!!filterPage && (
-          <>
+  return (
+    <section className='container'>
+      {!!filterPage && (
+        <>
           <h1>Filter value: {filterPage}</h1>
-          </>
-        )}
-        <MyInput hadleChange={this.hadleChange} filterPage={filterPage}/>
-        {/*parametro = resultado da filtragem*/}
-        <Posts posts={filteredPost}/>
+        </>
+      )}
+      <MyInput hadleChange={hadleChange} filterPage={filterPage} />
+      {/*parametro = resultado da filtragem*/}
+      <Posts posts={filteredPost} />
 
-        {!filterPage && (
-                  <MyButton disabled={isMorePost}
-                  loadMore={this.loadMorePosts} />
-        )}
-
-
-         {console.log("FOI")}
-      </section>
-    );
-  }
+      {!filterPage && (
+        <MyButton disabled={isMorePost}
+          loadMore={loadMorePosts} />
+      )}
+    </section>
+  );
 }
+
+// class Home2 extends Component {
+//   //o uso de parenteses indica o retorno de mais de uma linha em um map dentro do return()
+//   //Isso é um estado
+//   state = {
+//     posts: [],
+//     allPosts: [],
+//     page: 0,
+//     postsPerPage: 2,
+//     filterPage: ''
+//   };
+
+//   componentDidMount() {
+//     this.loadTodos();
+//   }
+
+
+//   render() {
+
+//   }
+// }
 
 // function App() {
 //   //JSX, tudo isso é convertido com Babel par JS, que o browser entende
