@@ -1,8 +1,8 @@
 import './style.css';
 
-import { Component, useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { loadPosts } from '../../util/load-props.js';
-import { Posts } from '../../components/postCard/Post';
+import { Posts } from '../../components/Post';
 import { MyButton } from '../../components/postCard/button/index.jsx';
 import { MyInput } from '../../components/postCard/inputFilter'
 
@@ -13,7 +13,7 @@ export const Home = _ => {
   const [posts, setPosts] = useState([]);
   const [allPosts, setAllPosts] = useState([]);
   const [page, setPage] = useState(0);
-  const [postsPerPage, setPostPeerPage] = useState(2);
+  const [postsPerPage] = useState(2);
   const [filterPage, setFilterPage] = useState('');
 
   

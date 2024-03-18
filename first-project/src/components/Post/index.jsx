@@ -1,7 +1,7 @@
-import { PostCard } from ".."
+import { PostCard } from "../postCard"
 import './style.css'
 
-export const Posts = (posts) => {
+export const Posts = (posts = []) => {
 
     const post = posts.posts;
 

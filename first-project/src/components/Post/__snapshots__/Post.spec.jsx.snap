@@ -1,0 +1,63 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Post/> should make the snapshot 1`] = `
+<body>
+  <div>
+    <div
+      class="App"
+    >
+      <div
+        class="card"
+      >
+        <img
+          src="foto1.png"
+        />
+        <h4>
+          Titulo: 
+          titulo1
+           
+        </h4>
+        <p>
+           
+          Conpletada
+           
+        </p>
+      </div>
+      <div
+        class="card"
+      >
+        <img
+          src="foto2.png"
+        />
+        <h4>
+          Titulo: 
+          titulo2
+           
+        </h4>
+        <p>
+           
+          Por fazer
+           
+        </p>
+      </div>
+      <div
+        class="card"
+      >
+        <img
+          src="foto3.png"
+        />
+        <h4>
+          Titulo: 
+          titulo3
+           
+        </h4>
+        <p>
+           
+          Conpletada
+           
+        </p>
+      </div>
+    </div>
+  </div>
+</body>
+`;

@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<MyInput/> make the snapshot 1`] = `
+<input
+  placeholder="Digite aqui"
+  type="search"
+  value=""
+/>
+`;
