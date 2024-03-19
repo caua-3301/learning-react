@@ -7,6 +7,7 @@ exports[`<PostCard /> should make a snapshot 1`] = `
       class="card"
     >
       <img
+        alt="imagemLegal"
         src="imagens/foto1.jpeg"
       />
       <h4>

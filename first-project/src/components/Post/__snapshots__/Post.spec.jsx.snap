@@ -10,6 +10,7 @@ exports[`<Post/> should make the snapshot 1`] = `
         class="card"
       >
         <img
+          alt="imagemLegal"
           src="foto1.png"
         />
         <h4>
@@ -27,6 +28,7 @@ exports[`<Post/> should make the snapshot 1`] = `
         class="card"
       >
         <img
+          alt="imagemLegal"
           src="foto2.png"
         />
         <h4>
@@ -44,6 +46,7 @@ exports[`<Post/> should make the snapshot 1`] = `
         class="card"
       >
         <img
+          alt="imagemLegal"
           src="foto3.png"
         />
         <h4>
