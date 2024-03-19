@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<PostCard /> should make a snapshot 1`] = `
+<body>
+  <div>
+    <div
+      class="card"
+    >
+      <img
+        src="imagens/foto1.jpeg"
+      />
+      <h4>
+        Titulo: 
+        titulo de teste vindo da prop PostCard
+         
+      </h4>
+      <p>
+         
+        Conpletada
+         
+      </p>
+    </div>
+  </div>
+</body>
+`;

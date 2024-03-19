@@ -1,7 +1,7 @@
 //todo: conhecido como props
 import './style.css'
 
-export const PostCard = (props) => {
+export const PostCard = (props = {}) => {
     
     return(
         <div className="card">
