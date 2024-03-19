@@ -1,5 +1,5 @@
 export const props = {
-  photoUrl: "imagens/foto1.jpeg",
+  photoUrl: 'imagens/foto1.jpeg',
   completed: true,
-  title: "titulo de teste vindo da prop PostCard"
-}
+  title: 'titulo de teste vindo da prop PostCard',
+};

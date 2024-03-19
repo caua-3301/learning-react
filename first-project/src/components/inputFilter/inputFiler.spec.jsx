@@ -1,32 +1,32 @@
-import { render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
-import { MyInput } from ".";
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { MyInput } from '.';
 
-describe("<MyInput/>", () => {
-    it("should write", () => {
-        expect.assertions(3);
+describe('<MyInput/>', () => {
+  it('should write', () => {
+    expect.assertions(3);
 
-        const fn = jest.fn();
+    const fn = jest.fn();
 
-        render(<MyInput hadleChange={fn} />);
+    render(<MyInput hadleChange={fn} />);
 
-        const inputText = screen.getByPlaceholderText("Digite aqui");
+    const inputText = screen.getByPlaceholderText('Digite aqui');
 
-        const input = "PesquisaTeste";
+    const input = 'PesquisaTeste';
 
-        userEvent.type(inputText, input);
+    userEvent.type(inputText, input);
 
-        expect(inputText.value).toBe(input);
-        expect(fn).toHaveBeenCalledTimes(input.length);
-        expect(inputText).toBeInTheDocument();
-    });
+    expect(inputText.value).toBe(input);
+    expect(fn).toHaveBeenCalledTimes(input.length);
+    expect(inputText).toBeInTheDocument();
+  });
 
-    it("make the snapshot", () => {
-        const fn = jest.fn();
+  it('make the snapshot', () => {
+    const fn = jest.fn();
 
-        render(<MyInput hadleChange={fn} />);
-        const elementInput = screen.getByPlaceholderText("Digite aqui");
+    render(<MyInput hadleChange={fn} />);
+    const elementInput = screen.getByPlaceholderText('Digite aqui');
 
-        expect(elementInput).toMatchSnapshot();
-    })
+    expect(elementInput).toMatchSnapshot();
+  });
 });

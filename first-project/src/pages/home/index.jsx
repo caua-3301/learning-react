@@ -4,10 +4,10 @@ import { useCallback, useEffect, useState } from 'react';
 import { loadPosts } from '../../util/load-props.js';
 import { Posts } from '../../components/Post';
 import { MyButton } from '../../components/postCard/button/index.jsx';
-import { MyInput } from '../../components/postCard/inputFilter'
+import { MyInput } from '../../components/postCard/inputFilter';
 
 //nao existe this aqui
-export const Home = _ => {
+export const Home = (_) => {
   //useState retorna um array com dois elemento, o elemento em si,e , um função para que ele seja setado depois
   //useState recebe o valor inicial do estado
   const [posts, setPosts] = useState([]);
@@ -16,16 +16,14 @@ export const Home = _ => {
   const [postsPerPage] = useState(2);
   const [filterPage, setFilterPage] = useState('');
 
-  
   const handleLoadPosts = useCallback(async (page, postsPerPage) => {
     const photoAndPost = await loadPosts();
 
     setPosts(photoAndPost.slice(page, postsPerPage));
-    setAllPosts(photoAndPost)
+    setAllPosts(photoAndPost);
   }, []);
 
-  const loadMorePosts = _ => {
-
+  const loadMorePosts = (_) => {
     const nextPage = page + postsPerPage;
     const nextPost = allPosts.slice(nextPage, nextPage + postsPerPage);
 
@@ -33,27 +31,32 @@ export const Home = _ => {
 
     setPosts(posts);
     setPage(nextPage);
-  }
+  };
 
-  const hadleChange = e => {
+  const hadleChange = (e) => {
     const { value } = e.target;
 
     setFilterPage(value);
-  }
+  };
 
-  useEffect(_ => {
-    handleLoadPosts(0, postsPerPage);
-  }, [handleLoadPosts, postsPerPage]);
+  useEffect(
+    (_) => {
+      handleLoadPosts(0, postsPerPage);
+    },
+    [handleLoadPosts, postsPerPage],
+  );
 
   const isMorePost = page + postsPerPage >= allPosts.length;
 
   //função de filtragem não pode ser diretamente no estado devido a perda do que estava na tela
-  const filteredPost = !!filterPage ? posts.filter(post => {
-    return post.title.toUpperCase().includes(filterPage.toUpperCase())
-  }) : posts;
+  const filteredPost = filterPage
+    ? posts.filter((post) => {
+        return post.title.toUpperCase().includes(filterPage.toUpperCase());
+      })
+    : posts;
 
   return (
-    <section className='container'>
+    <section className="container">
       {!!filterPage && (
         <>
           <h1>Filter value: {filterPage}</h1>
@@ -63,13 +66,10 @@ export const Home = _ => {
       {/*parametro = resultado da filtragem*/}
       <Posts posts={filteredPost} />
 
-      {!filterPage && (
-        <MyButton disabled={isMorePost}
-          loadMore={loadMorePosts} />
-      )}
+      {!filterPage && <MyButton disabled={isMorePost} loadMore={loadMorePosts} />}
     </section>
   );
-}
+};
 
 // class Home2 extends Component {
 //   //o uso de parenteses indica o retorno de mais de uma linha em um map dentro do return()
@@ -85,7 +85,6 @@ export const Home = _ => {
 //   componentDidMount() {
 //     this.loadTodos();
 //   }
-
 
 //   render() {
 

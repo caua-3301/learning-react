@@ -1,4 +1,4 @@
-export const loadPosts = async _ => {
+export const loadPosts = async () => {
   const postRepsonse = fetch('https://jsonplaceholder.typicode.com/todos');
   const photoResponse = fetch('https://jsonplaceholder.typicode.com/photos');
 
@@ -9,8 +9,8 @@ export const loadPosts = async _ => {
 
   //tecnica chamada de ziper
   const photoAndPost = postsJson.map((item, id) => {
-    return { ...item, photoUrl: photosJson[id].url }
-  })
+    return { ...item, photoUrl: photosJson[id].url };
+  });
 
   return photoAndPost;
-}
+};
