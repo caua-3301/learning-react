@@ -1,4 +1,5 @@
 import { screen, render } from '@testing-library/react';
+import React from 'react';
 import { props } from './propsPostCard';
 import { PostCard } from '.';
 

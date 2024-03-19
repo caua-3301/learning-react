@@ -14,6 +14,7 @@ module.exports = {
     'plugin:react/recommended',
     'plugin:jest/recommended', //melhor tratamento da lib
     'plugin:prettier/recommended',
+    'eslint-config-react-app',
   ],
   overrides: [
     {

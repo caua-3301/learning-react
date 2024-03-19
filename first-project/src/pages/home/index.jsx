@@ -1,6 +1,7 @@
 import './style.css';
 
 import { useCallback, useEffect, useState } from 'react';
+import React from 'react';
 import { loadPosts } from '../../util/load-props.js';
 import { Posts } from '../../components/Post';
 import { MyButton } from '../../components/postCard/button/index.jsx';

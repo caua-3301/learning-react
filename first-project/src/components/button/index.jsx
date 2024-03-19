@@ -1,4 +1,6 @@
 import { Component } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 import './style.css';
 
 export class MyButton extends Component {
@@ -12,3 +14,8 @@ export class MyButton extends Component {
     );
   }
 }
+
+MyButton.propTypes = {
+  loadMore: PropTypes.func.isRequired,
+  disabled: PropTypes.bool,
+};
