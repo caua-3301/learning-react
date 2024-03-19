@@ -3,19 +3,19 @@ import { props } from "./propsPostCard";
 import { PostCard } from ".";
 
 describe("<PostCard />", () => {
-    it("should show itens", () => {
-        render(<PostCard {...props} />);
+  it("should show itens", () => {
+    render(<PostCard {...props} />);
 
-        //debug();
+    //debug();
 
-        expect(screen.getByRole('img')).toBeInTheDocument();
-    })
+    expect(screen.getByRole('img')).toBeInTheDocument();
+  })
 
-    it("should make a snapshot", () => {
-        render(<PostCard {...props} />);
+  it("should make a snapshot", () => {
+    render(<PostCard {...props} />);
 
-        //debug();
+    //debug();
 
-        expect(document.body).toMatchSnapshot();
-    })
+    expect(document.body).toMatchSnapshot();
+  })
 });

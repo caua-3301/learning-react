@@ -1,6 +1,6 @@
-export const MyInput = ( { hadleChange, filterPage } ) => {
+export const MyInput = ({ hadleChange, filterPage }) => {
 
-    return (
-        <input onChange={hadleChange} value={filterPage} type="search" placeholder="Digite aqui"/>
-    )
+  return (
+    <input onChange={hadleChange} value={filterPage} type="search" placeholder="Digite aqui" />
+  )
 }

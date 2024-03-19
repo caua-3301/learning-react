@@ -1,16 +1,16 @@
 export const loadPosts = async _ => {
-    const postRepsonse = fetch('https://jsonplaceholder.typicode.com/todos');
-    const photoResponse = fetch('https://jsonplaceholder.typicode.com/photos');
+  const postRepsonse = fetch('https://jsonplaceholder.typicode.com/todos');
+  const photoResponse = fetch('https://jsonplaceholder.typicode.com/photos');
 
-    const [posts, photos] = await Promise.all([postRepsonse, photoResponse]);
+  const [posts, photos] = await Promise.all([postRepsonse, photoResponse]);
 
-    const postsJson = await posts.json();
-    const photosJson = await photos.json();
+  const postsJson = await posts.json();
+  const photosJson = await photos.json();
 
-    //tecnica chamada de ziper
-    const photoAndPost = postsJson.map((item, id) => {
-      return { ...item, photoUrl: photosJson[id].url }
-    })
+  //tecnica chamada de ziper
+  const photoAndPost = postsJson.map((item, id) => {
+    return { ...item, photoUrl: photosJson[id].url }
+  })
 
-    return photoAndPost;
+  return photoAndPost;
 }
