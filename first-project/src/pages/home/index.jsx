@@ -1,11 +1,10 @@
 import './style.css';
 
-import { useCallback, useEffect, useState } from 'react';
-import React from 'react';
-import { loadPosts } from '../../util/load-props.js';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Posts } from '../../components/Post';
-import { MyButton } from '../../components/postCard/button/index.jsx';
-import { MyInput } from '../../components/postCard/inputFilter';
+import { MyButton } from '../../components/button';
+import { MyInput } from '../../components/inputFilter';
+import { loadPosts } from '../../util/load-props.js';
 
 //nao existe this aqui
 export const Home = (_) => {
@@ -66,6 +65,8 @@ export const Home = (_) => {
       <MyInput hadleChange={hadleChange} filterPage={filterPage} />
       {/*parametro = resultado da filtragem*/}
       <Posts posts={filteredPost} />
+
+      {filteredPost.length === 0 && <p>Não existem posts</p>}
 
       {!filterPage && <MyButton disabled={isMorePost} loadMore={loadMorePosts} />}
     </section>
