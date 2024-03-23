@@ -1,0 +1,33 @@
+import React, { useState, useEffect } from 'react';
+import './App.css';
+
+function App() {
+  const [counter, setCounter] = useState(0);
+
+  //tudo que for usado uma var dentro do useEffect tem que ser informado nos parametros
+  //aceita JS puro dentro dos useEffects
+
+  //componentDidUpdate - executa a cada atualização do componente
+  useEffect(() => {
+    console.log('componentDidUpdate');
+  });
+
+  //componentDidMount - executa uma vezf
+  useEffect(() => {
+    console.log('componentDidMount');
+  }, []); //o parametro vazio indica isso porque esse paramentro observar os componentes que neles estão, como está vazio, executa só uma vez
+
+  //com dependência, executa toda vez que a dependência mudar
+  useEffect(() => {
+    console.log('mudou o counter');
+  }, [counter]);
+
+  return (
+    <div className="App">
+      <h1>Counter: {counter}</h1>
+      <button onClick={() => setCounter(counter + 1)}>+</button>
+    </div>
+  );
+}
+
+export default App;
