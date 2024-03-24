@@ -1,0 +1,32 @@
+//React.memo armazena o componente em cache e o renderiza só quando algum estado relacionado mudar
+const Button = ({ updateStateCounter }) => {
+  return <button onClick={() => updateStateCounter(10)}>+</button>;
+};
+
+//validando props
+Button.propTypes = {
+  updateStateCounter: PropTypes.func,
+};
+
+function App() {
+  const [counter, setCounter] = useState(0);
+
+  //prop enviada para Button
+  //com o userCallback, a função fica em cache, sendo desnecessário atualizála quando o coubter muda, nesse caso, para não depender de counter (já que muda sempre), utilizamos o parametro do setState, como nos parametros do useCallback([]) está vazio, o mesmo não renderiza, isso porque, ele so atualiza quando alguma dependencia muda
+  const updateStateCounter = useCallback((value) => {
+    setCounter((c) => parseInt(c + value));
+  }, []);
+
+  console.log('renderizou pai');
+
+  return (
+    <div className="App">
+      <h1>Counter: {counter}</h1>
+      {useMemo(() => {
+        <Button updateStateCounter={updateStateCounter} />;
+      }, [updateStateCounter])}
+    </div>
+  );
+}
+
+export default App;

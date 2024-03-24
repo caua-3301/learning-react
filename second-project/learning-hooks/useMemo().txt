@@ -1,18 +1,12 @@
 import PropTypes from 'prop-types';
-import React, {
-  useState,
-  useEffect,
-  useCallback,
-  useMemo,
-  useRef,
-} from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import './App.css';
 
-const Post = ({ myPost, onClick }) => {
+const Post = ({ myPost }) => {
   console.log('filho');
   return (
     <div key={myPost.id} className="post">
-      <h1 onClick={() => onClick(myPost.title)}>{myPost.title}</h1>
+      <h1>{myPost.title}</h1>
       <p>{myPost.body}</p>
     </div>
   );
@@ -24,15 +18,11 @@ Post.propTypes = {
     title: PropTypes.string,
     body: PropTypes.string,
   }),
-  onClick: PropTypes.func,
 };
 
 function App() {
   console.log('renderizou pai');
 
-  //guarda a referencia de qualquer coisa
-  //o valor do input qunado alterado não gera re-renderização
-  const input = useRef(null);
   const [post, setPosts] = useState([]);
   const [value, setValue] = useState('');
 
@@ -42,19 +32,9 @@ function App() {
       .then((inJson) => setPosts(inJson));
   }, []);
 
-  useEffect(() => {
-    input.current.focus();
-  }, [value]);
-
-  const handleClick = (title) => {
-    setValue(title);
-  };
-
-  //refenricia de input é definida (nesse caso) com ref={input} no meu input
   return (
     <div className="App">
       <input
-        ref={input}
         type="search"
         value={value}
         onChange={(e) => setValue(e.target.value)}
@@ -62,7 +42,7 @@ function App() {
 
       {useMemo(() => {
         return post.map((post) => {
-          return <Post key={post.id} myPost={post} onClick={handleClick} />;
+          return <Post key={post.id} myPost={post} />;
         });
       }, [post])}
     </div>
