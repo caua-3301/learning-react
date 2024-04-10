@@ -1,0 +1,79 @@
+import { Section } from './components/Div/Section';
+import { Title } from './components/Title/Title';
+import P from 'prop-types';
+import React, {
+  createContext,
+  useContext,
+  useReducer,
+  useRef,
+  useState,
+} from 'react';
+import { itens } from './context/App/data.js';
+import './App.css';
+
+//actions.js
+const actions = {
+  CHANGE: 'CHANGE_THE_NAME',
+};
+
+//meu contecto
+const Context = createContext();
+
+//reducer.js
+const reducer = (state, action) => {
+  switch (action.type) {
+    case actions.CHANGE: {
+      return { ...state, body: 'corpo bagulhado', title: action.payload };
+    }
+  }
+  return { ...state };
+};
+
+//eslint-desactive-next-line
+const AppContext = ({ children }) => {
+  const [state, despatch] = useReducer(reducer, itens);
+
+  //caso eu não queira passar o dispatch diretamente =>
+  const chageSomething = (payload) => {
+    despatch({ type: actions.CHANGE, payload: payload });
+  };
+
+  return (
+    <Context.Provider value={{ state, chageSomething }}>
+      {children}
+    </Context.Provider>
+  );
+};
+
+//Mycomponent
+const MyComponnent = ({ children }) => {
+  const context = useContext(Context);
+  const inputRef = useRef();
+
+  return (
+    <>
+      <section onClick={() => context.chageSomething(inputRef.current.value)}>
+        {context.state.title} {'  '}
+        {context.state.body}
+      </section>
+      <input ref={inputRef} type="text" placeholder="digite algo" />
+    </>
+  );
+};
+
+MyComponnent.propTypes = {
+  children: P.node,
+};
+
+AppContext.propTypes = {
+  children: P.node,
+};
+
+function App() {
+  return (
+    <AppContext>
+      <MyComponnent></MyComponnent>
+    </AppContext>
+  );
+}
+export default App;

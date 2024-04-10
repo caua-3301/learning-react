@@ -1,0 +1,37 @@
+import { Section } from './components/Div/Section';
+import { Title } from './components/Title/Title';
+import AppContext, { FistContext } from './context/App';
+import React, { useReducer, useState } from 'react';
+import { itens } from './context/App/data.js';
+import './App.css';
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    case 'add': {
+      console.log('add activate');
+      return { ...state, counter: state.counter + 1 };
+    }
+
+    case 'remove': {
+      console.log('remove activate');
+      return { ...state, counter: state.counter - 1 };
+    }
+  }
+  return { ...state };
+};
+
+function App() {
+  const [state, dispath] = useReducer(reducer, itens);
+  const { counter, body, title } = state;
+
+  return (
+    <>
+      <div>
+        {body} {counter}
+      </div>
+      <button onClick={() => dispath({ type: 'add' })}>Add</button>
+      <button onClick={() => dispath({ type: 'remove' })}>Remove</button>
+    </>
+  );
+}
+export default App;
