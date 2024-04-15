@@ -1,100 +1,38 @@
-import React from 'react';
-import './App.css';
-import { useState } from 'react';
-import { useEffect } from 'react';
-import { useRef } from 'react';
+import React, {
+  forwardRef,
+  useEffect,
+  useImperativeHandle,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from 'react';
+import P from 'prop-types';
 
-const isEqual = (itemA, itemB) => {
-  return JSON.stringify(itemA) === JSON.stringify(itemB);
-};
-
-const useFetch = (url, options) => {
-  let wait = false;
-  const controle = new AbortController();
-  const sgnal = controle.signal;
-
-  const [result, setResult] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [observer, setObserver] = useState(false);
-
-  const refUrl = useRef(url);
-  const refOptions = useRef(options);
+const useMediaQuery = (quaryValue) => {
+  const [match, setMatch] = useState(0);
 
   useEffect(() => {
-    if (!isEqual(url, refUrl)) {
-      refUrl.current = url;
-      setObserver((e) => !e);
-    }
+    let isMoutend = true;
 
-    if (!isEqual(options, refOptions.current)) {
-      refOptions.current = options;
-      setObserver((e) => !e);
-    }
-  }, [url]);
+    const matchMedia = window.matchMedia(quaryValue);
 
-  useEffect(() => {
-    const getData = async () => {
-      await new Promise((x) => setTimeout(x, 1000));
+    const handleChange = () => {
+      if (isMoutend) return;
 
-      try {
-        const response = await fetch(refUrl.current, {
-          ...refOptions.current,
-          signal: sgnal,
-        });
-        const content = await response.json();
-
-        if (!wait) {
-          setResult(content);
-          setLoading(false);
-        }
-      } catch (exception) {
-        console.log(exception);
-      }
+      setMatch(!!matchMedia.matches);
     };
 
-    getData();
+    matchMedia.addEventListener('change', handleChange);
+    setMatch(matchMedia.matches);
 
     return () => {
-      wait = true;
-      controle.abort();
+      isMoutend = false;
+      matchMedia.removeEventListener('change', handleChange);
     };
-  }, [observer]);
-
-  return [result, loading];
+  }, [quaryValue]);
 };
 
-function App() {
-  const [idPost, setIdPost] = useState('');
-
-  const [result, loading] = useFetch(
-    'https://jsonplaceholder.typicode.com/posts/' + idPost,
-    {
-      method: 'GET',
-    },
-  );
-
-  const handleClick = (id) => {
-    setIdPost(id);
-    console.log(idPost);
-  };
-
-  if (!loading && result) {
-    return (
-      <div>
-        {result?.length > 0 ? (
-          result.map((item) => {
-            return (
-              <p onClick={() => handleClick(item.id)} key={item.id}>
-                {item.title}
-              </p>
-            );
-          })
-        ) : (
-          <p onClick={() => handleClick('')}>{result.title}</p>
-        )}
-      </div>
-    );
-  }
+export default function App() {
+  const test = useMediaQuery('(max-width: 763px)');
+  return <div style={{ backgroundColor: `${test ? 'black' : 'red'}` }}>Oi</div>;
 }
-
-export default App;

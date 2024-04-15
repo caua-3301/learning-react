@@ -1,0 +1,66 @@
+import React, {
+  forwardRef,
+  useEffect,
+  useImperativeHandle,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from 'react';
+import P from 'prop-types';
+
+export default function App() {
+  const [counter, setCounter] = useState([0, 1, 2, 3, 4, 5]);
+
+  const handleClick = () => {
+    setCounter([...counter, counter[counter.length - 1] + 1]);
+    ref.current.handleClick();
+  };
+
+  const ref = useRef();
+
+  useLayoutEffect(() => {
+    const date = Date.now();
+    while (Date.now() < date + 600);
+    ref.current.divRef.current.scrollTop =
+      ref.current.divRef.current.scrollHeight;
+  });
+
+  return (
+    <>
+      <button onClick={handleClick}>Count {counter[counter.length - 1]}</button>
+      <Display counter={counter} ref={ref} />
+    </>
+  );
+}
+
+const Display = forwardRef(function Display({ counter }, ref) {
+  const [rand, setRange] = useState('0.2');
+  const divRef = useRef();
+
+  const handleClick = () => {
+    setRange(Math.random());
+  };
+
+  useImperativeHandle(ref, () => ({
+    handleClick,
+    divRef: divRef.current,
+  }));
+
+  return (
+    <div
+      style={{ height: '200px', width: '200px', overflowY: 'scroll' }}
+      ref={divRef}
+    >
+      {counter.map((cont) => (
+        <p onClick={handleClick} key={cont}>
+          {cont} {rand}
+        </p>
+      ))}
+    </div>
+  );
+});
+
+Display.propTypes = {
+  counter: P.node,
+  ref: P.node,
+};
