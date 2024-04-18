@@ -1,0 +1,40 @@
+import React, {
+  forwardRef,
+  useEffect,
+  useImperativeHandle,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from 'react';
+import P from 'prop-types';
+
+//eslint-disable-next-line
+const Coisa = forwardRef((props, reference) => {
+  const referenChild = useRef();
+
+  useImperativeHandle(reference, () => ({
+    show: () => {
+      return referenChild.current.innerText;
+    },
+  }));
+
+  return <p ref={referenChild}>Texto do filho</p>;
+});
+
+export default function App() {
+  const refChild = useRef();
+  const buttonRef = useRef();
+
+  const handleClick = () => {
+    buttonRef.current.innerText = refChild.current.show();
+  };
+
+  return (
+    <div>
+      <Coisa ref={refChild} />
+      <button ref={buttonRef} onClick={handleClick}>
+        Show in console
+      </button>
+    </div>
+  );
+}

@@ -1,0 +1,21 @@
+import { Children, cloneElement } from 'react';
+
+const s = {
+  style: { fontSize: '60px' },
+};
+
+const Parent = ({ children }) => {
+  return Children.map(children, (child) => {
+    const myCh = cloneElement(child, { ...s });
+    return myCh;
+  });
+};
+
+export default function App() {
+  return (
+    <Parent>
+      <p>01</p>
+      <p>02</p>
+    </Parent>
+  );
+}
