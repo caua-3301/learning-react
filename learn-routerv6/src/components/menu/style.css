@@ -1,0 +1,24 @@
+.headerMenu {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: rgb(32, 32, 32);
+    height: 80px;
+}
+
+.headerMenu > nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    font-weight: bolder;
+}
+
+.headerMenu > nav > a {
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+}
+
+.headerMenu > nav > a:hover {
+    color: rgb(255, 255, 255);
+    text-decoration: underline;
+}
